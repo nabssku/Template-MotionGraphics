@@ -20,7 +20,7 @@ npx skills add nabssku/Template-MotionGraphics --skill classroom-chalkboard-expl
 
 | Skill | Format | Gaya & Komponen Terkunci | Path |
 | --- | --- | --- | --- |
-| `classroom-chalkboard-explainer` | 720×1280 (9:16), 30 fps | Kelas papan tulis flat-vector Indonesia: guru batik + kacamata bening + tongkat penunjuk aktif, 3 murid SD ekspresif, papan tulis kapur berpori + penghapus bolak-balik, kamera 2D terpadu, buku catatan pensil, font `Caveat Brush` & `Fredoka`, caption pill TikTok/Reels. | [skills/classroom-chalkboard-explainer](./skills/classroom-chalkboard-explainer/SKILL.md) |
+| `classroom-chalkboard-explainer` | 720×1280 (9:16), 30 fps | Kelas papan tulis flat-vector Indonesia: guru batik + kacamata bening + tongkat penunjuk aktif, 3 murid SD ekspresif, papan tulis kapur berpori + penghapus bolak-balik, kamera 2D terpadu, buku catatan pensil, font `Caveat Brush` & `Fredoka`, caption pill TikTok/Reels, plus paket 12 SFX kelas & BGM lembut (`audio_mix.py`). | [skills/classroom-chalkboard-explainer](./skills/classroom-chalkboard-explainer/SKILL.md) |
 
 ## Cara Menambah Skill Baru
 

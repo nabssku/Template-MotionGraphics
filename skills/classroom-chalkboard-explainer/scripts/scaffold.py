@@ -12,6 +12,7 @@ SKILL_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def scaffold(project_dir):
     project_dir = os.path.abspath(project_dir)
     os.makedirs(os.path.join(project_dir, "assets", "fonts"), exist_ok=True)
+    os.makedirs(os.path.join(project_dir, "assets", "sfx"), exist_ok=True)
     os.makedirs(os.path.join(project_dir, "compositions"), exist_ok=True)
 
     # Copy locked fonts verbatim (no network download required, zero drift)
@@ -21,8 +22,15 @@ def scaffold(project_dir):
             os.path.join(project_dir, "assets", "fonts", fn),
         )
 
-    # Copy locked classroom rig and reusable templates verbatim
-    for fn in ("classroom_lib.py", "reusable_templates.py"):
+    # Copy locked classroom SFX + soft BGM loop verbatim (offline, zero drift)
+    sfx_src = os.path.join(SKILL_ROOT, "assets", "sfx")
+    if os.path.isdir(sfx_src):
+        for fn in sorted(os.listdir(sfx_src)):
+            if fn.endswith(".mp3"):
+                shutil.copy2(os.path.join(sfx_src, fn), os.path.join(project_dir, "assets", "sfx", fn))
+
+    # Copy locked classroom rig, reusable templates, and audio mixer verbatim
+    for fn in ("classroom_lib.py", "reusable_templates.py", "audio_mix.py"):
         shutil.copy2(
             os.path.join(SKILL_ROOT, "scripts", fn),
             os.path.join(project_dir, fn),

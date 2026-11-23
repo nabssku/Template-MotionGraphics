@@ -20,7 +20,9 @@ Read `/hyperframes` first for the HyperFrames render contract (`plugin-cli.mjs` 
 - [scripts/scaffold.py](./scripts/scaffold.py) — Bootstraps a new project directory with the locked rig, templates, fonts, and HyperFrames config.
 - [scripts/classroom_lib.py](./scripts/classroom_lib.py) — Unified 720×1280 classroom world stage (`Scene`, smooth camera presets, pointer stick rig, back-and-forth eraser wipe, porous chalk filter, teacher & 3 SD student expressions, fluffy cloud bubbles, `HA!` laugh, cheering 5-finger arms, golden wall clock glow, ringing school bell).
 - [scripts/reusable_templates.py](./scripts/reusable_templates.py) — Locked `build_captions()`, `build_index()`, `build_notebook_scene()`, and chalkboard pictograms (`sun_svg`, `moon_svg`, `star_svg`, `brick_pyr`, `CHALK_HAND`).
+- [scripts/audio_mix.py](./scripts/audio_mix.py) — Locked sample-exact float32 stereo mixer combining VO + timed classroom SFX cues + optional soft looping BGM into 48 kHz AAC (`assets/audio_mix.m4a`) with zero `amix` volume pumping.
 - `assets/fonts/caveat-brush.ttf` (289 KB) & `assets/fonts/fredoka.ttf` (156 KB) — Copied offline by `scaffold.py` (both well under the 2 MB inline limit).
+- `assets/sfx/*.mp3` — 12 peak-normalized studio classroom SFX (`chalk`, `eraser`, `whoosh`, `pop`, `stamp`, `pencil`, `drop`, `tick`, `laugh`, `chime`, `bell`, `cheer`) + soft acoustic `bgm.mp3` loop (~550 KB total), copied offline by `scaffold.py`.
 - [examples/build_episode_1jam_60menit.py](./examples/build_episode_1jam_60menit.py) — Complete verified 99-second reference episode demonstrating every beat type (clock zoom intro, river map, tablet, divisor chips, wall-overflow text gag, clock slices, stamps, 2-hand counter, pyramids + 12 stars, pencil notebook, crossed-out 10-hour clock, golden clock + bell + cheering finale).
 
 ---
@@ -46,6 +48,7 @@ Read `/hyperframes` first for the HyperFrames render contract (`plugin-cli.mjs` 
    - Captions & callout pills: `'Fredoka'` weight 700.
    - Captions via `build_captions(caps, climax_html, climax_start, climax_dur)`: pill `#1F1812` at `top: 1042px`, 2–4 words per beat, wrap emphasized word in `[brackets]` for `#F2D45C` yellow; finale single-line climax at `top: 780px`.
 6. **Zero overlapping GSAP tweens:** Chain sequential `.to()` animations with strictly non-overlapping timestamps, and use `repeat: N, yoyo: true` instead of looped `fromTo()` calls on the same element.
+7. **Always wire synced SFX (unless user asks for silence):** Unless the user explicitly asks for a silent video, ALWAYS call `mix_episode_audio(total_dur, cues, vo_path=..., bgm_path="assets/sfx/bgm.mp3", out_path="assets/audio_mix.m4a")` from `audio_mix.py` and pass `audio_src="assets/audio_mix.m4a"` to `build_index()`. Map every major visual event to its exact timestamp cue: `tick` (intro clock), `whoosh` (camera zoom/pan), `chalk` (board write-on), `eraser` (every `eraser_wipe`), `pop` (bubbles, `!`, icon pops), `stamp` (`RAPI!`/`TEORI`/`GAGAL!`), `pencil` (notebook strokes), `laugh` (`students_laugh`), `chime` (`gold_clock`), `bell` (`ring_bell`), `cheer` (`student_cheer` finale). Keep `bgm_gain=0.11` so BGM stays cozy underneath VO and SFX.
 
 ---
 
